@@ -52,7 +52,7 @@ public class SerieClienteREST {
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
     }
-
+   
     public <T> T find_JSON(Class<T> responseType, String id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
@@ -88,7 +88,7 @@ public class SerieClienteREST {
         WebTarget resource = webTarget;
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
-
+    
     public void remove(String id) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{id})).request().delete();
     }
@@ -96,5 +96,23 @@ public class SerieClienteREST {
     public void close() {
         client.close();
     }
+    
+//---------------------Consulta para actualizar la tabla dependiendo del valor del SelectOneMenu---------------------------------
+    
+    public <T> T findSeriesByIdCategoria_XML(Class<T> responseType, String idCategoria) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("seriesByIdCategoria/{0}", new Object[]{idCategoria}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
+    }
+    
+     
+    public <T> T findSeriesByIdCategoria_JSON(Class<T> responseType, String idCategoria) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("seriesByIdCategoria/{0}", new Object[]{idCategoria}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+//-------------------------------------------------------------------------------------------------------------------------------
+    
+    
     
 }

@@ -2,32 +2,55 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Series</title>
     </h:head>
-    <h:body>
-        <h1>Lista de Series REST</h1>
-        <h:dataTable id="seriesTabla" value="#{indexBean.listaSeries}" var="serie" border="1">
-        <h:column>
-            <f:facet name="header">
-                Id
-            </f:facet>
-            #{serie.idSerie}
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Nombre
-            </f:facet>
-            #{serie.nombre}
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Fecha
-            </f:facet>
-            #{serie.fecha}
-        </h:column>
-        </h:dataTable>
+    <h:body style="background-color: #6699ff">
+        <h1 align="center">Lista de Series </h1>
+        <hr></hr>
+        <br></br>
+        
+        <style type="text/css">
+        .color {
+            background-color: #cccccc !important;
+        background-image: none !important;
+        color: #000000 !important;
+        }
+        </style>
+        
+        <h:form id="form">
+       
+        <p:selectOneMenu value="#{indexBean.categoriaIdSeleccionada}" style="width:170px">
+            <f:selectItem itemLabel="-- Select One --" itemValue="" />
+            <f:selectItems value="#{indexBean.listaCategoria}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.idCategoria}"/>
+            <p:ajax  event="valueChange" listener="#{indexBean.actualizarTabla()}" update=":form:tabla"/>
+        </p:selectOneMenu> 
+        
+        <p:dataTable  id="tabla" var="serie" value="#{indexBean.listaSeries}" scrollable="true" 
+                      scrollHeight="350" rowStyleClass="#{serie.idSerie%2==0 ? 'color' : null}">
+        <p:column headerText="Id">
+            <h:outputText value="#{serie.idSerie}" />
+        </p:column>
+
+        <p:column headerText="Nombre">
+            <h:outputText value="#{serie.nombre}" />
+        </p:column>
+
+        <p:column headerText="Autor">
+            <h:outputText value="#{serie.autor}" />
+        </p:column>
+
+        <p:column headerText="Descripción" width="900">
+            <h:outputText value="#{serie.descripcion}" />
+        </p:column>
+        <p:column headerText="Fecha" >
+            <h:outputText value="#{serie.fecha}" />
+        </p:column>
+        </p:dataTable>
+            
+        </h:form>
     </h:body>
 </html>
 
