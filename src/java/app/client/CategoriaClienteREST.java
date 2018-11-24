@@ -14,13 +14,13 @@ import javax.ws.rs.client.WebTarget;
  * [app.entity.categoria]<br>
  * USAGE:
  * <pre>
- *        CategoriaClienteREST client = new CategoriaClienteREST();
+ *        CategoriaClientREST client = new CategoriaClientREST();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
  * </pre>
  *
- * @author Jairo
+ * @author Javier
  */
 public class CategoriaClienteREST {
 
@@ -77,6 +77,18 @@ public class CategoriaClienteREST {
 
     public void create_JSON(Object requestEntity) throws ClientErrorException {
         webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+    }
+
+    public <T> T createCategoriaByNombre_XML(Class<T> responseType, String nombre) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("categoriaByNombre/{0}", new Object[]{nombre}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
+    }
+
+    public <T> T createCategoriaByNombre_JSON(Class<T> responseType, String nombre) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("categoriaByNombre/{0}", new Object[]{nombre}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     public <T> T findAll_XML(Class<T> responseType) throws ClientErrorException {
