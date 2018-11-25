@@ -7,11 +7,10 @@ package app.bean;
 
 import app.client.SerieClienteREST;
 import app.entity.Serie;
-import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
@@ -33,7 +32,7 @@ public class EditarBean {
     
     @PostConstruct
     public void init(){
-        serie = getSerieById(indexBean.serieIdSeleccionada);
+        serie = this.getSerieById(String.valueOf(indexBean.serieIdSeleccionada));
     }
 
     public Serie getSerie() {
@@ -43,11 +42,18 @@ public class EditarBean {
     public void setSerie(Serie serie) {
         this.serie = serie;
     }
+
+    public IndexBean getIndexBean() {
+        return indexBean;
+    }
+
+    public void setIndexBean(IndexBean indexBean) {
+        this.indexBean = indexBean;
+    }
     
     
     
-    private Serie getSerieById(Integer idSerie) {
-        String id = Integer.toString(idSerie);
+    private Serie getSerieById(String id) {
         SerieClienteREST serieCliente = new SerieClienteREST();
         Response r = serieCliente.find_XML(Response.class, id);
         if (r.getStatus() == 200) {

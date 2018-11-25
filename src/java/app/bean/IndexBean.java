@@ -119,7 +119,7 @@ public class IndexBean implements Serializable {
     }
         
     public String doEdit (Integer idSerie){
-        this.serieIdSeleccionada = idSerie;
+        this.setSerieIdSeleccionada(idSerie);
         return "editarSerie?faces-redirect=true";
     }
 }

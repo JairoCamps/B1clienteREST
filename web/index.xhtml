@@ -27,13 +27,15 @@
         }
         </style>
         
-        <h:form id="form">
+        <h:form>
             <p:outputLabel value="Crear nueva categoria:" style="vertical-align:middle; "/>
             <p:inputText required ="false" value="#{createCategoriaBean.c.nombre}"  style="vertical-align:middle;"/>
             <p:commandButton value="Crear" action="#{createCategoriaBean.crearCategoria(createCategoriaBean.c.nombre)}" style="vertical-align:middle;" ajax="false"  />
-            
+        </h:form>
+
+        <h:form id="form">
             <p:selectOneMenu value="#{indexBean.categoriaIdSeleccionada}" style="vertical-align:middle; ">
-                <f:selectItem itemLabel="Selecciona..." itemValue="" />
+                <f:selectItem itemLabel="Selecciona Categoría..." itemValue="" />
                 <f:selectItems value="#{indexBean.listaCategoria}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.idCategoria}"/>
                 <p:ajax  event="valueChange" listener="#{indexBean.actualizarTabla()}" update=":form:tabla"/>
             </p:selectOneMenu>
