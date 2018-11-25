@@ -113,6 +113,30 @@ public class SerieClienteREST {
     }
 //-------------------------------------------------------------------------------------------------------------------------------
     
+    public <T> T findSerieByNombre_XML(Class<T> responseType, String nombre) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("serieByNombre/{0}", new Object[]{nombre}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
+    }
     
+    public <T> T findSerieByNombre_JSON(Class<T> responseType, String nombre) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("serieByNombre/{0}", new Object[]{nombre}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+    
+    //-------------------------------------------------------------------------------------------------------------------------------
+    
+    public <T> T findCategoriasByIdSerie_XML(Class<T> responseType, String idSerie) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("categoriasByIdSerie/{0}", new Object[]{idSerie}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
+    }
+    
+    public <T> T findCategoriasByIdSerie_JSON(Class<T> responseType, String idSerie) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("categoriasByIdSerie/{0}", new Object[]{idSerie}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
     
 }

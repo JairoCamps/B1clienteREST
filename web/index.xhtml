@@ -29,35 +29,38 @@
         
         <h:form id="form">
             <p:outputLabel value="Crear nueva categoria:" style="vertical-align:middle; "/>
-            <p:inputText value="#{createCategoriaBean.c.nombre}"  style="vertical-align:middle;"/>
+            <p:inputText required ="false" value="#{createCategoriaBean.c.nombre}"  style="vertical-align:middle;"/>
             <p:commandButton value="Crear" action="#{createCategoriaBean.crearCategoria(createCategoriaBean.c.nombre)}" style="vertical-align:middle;" ajax="false"  />
             
             <p:selectOneMenu value="#{indexBean.categoriaIdSeleccionada}" style="vertical-align:middle; ">
-            <f:selectItem itemLabel="Selecciona..." itemValue="" />
-            <f:selectItems value="#{indexBean.listaCategoria}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.idCategoria}"/>
-            <p:ajax  event="valueChange" listener="#{indexBean.actualizarTabla()}" update=":form:tabla"/>
-        </p:selectOneMenu>
+                <f:selectItem itemLabel="Selecciona..." itemValue="" />
+                <f:selectItems value="#{indexBean.listaCategoria}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.idCategoria}"/>
+                <p:ajax  event="valueChange" listener="#{indexBean.actualizarTabla()}" update=":form:tabla"/>
+            </p:selectOneMenu>
        
         <p:dataTable  id="tabla" var="serie" value="#{indexBean.listaSeries}" scrollable="true" 
                       scrollHeight="350" rowStyleClass="#{serie.idSerie%2==0 ? 'color' : null}">
-        <p:column headerText="Id">
-            <h:outputText value="#{serie.idSerie}" />
-        </p:column>
+            <p:column headerText="Id">
+                <h:outputText value="#{serie.idSerie}" />
+            </p:column>
 
-        <p:column headerText="Nombre">
-            <h:outputText value="#{serie.nombre}" />
-        </p:column>
+            <p:column headerText="Nombre">
+                <h:outputText value="#{serie.nombre}" />
+            </p:column>
 
-        <p:column headerText="Autor">
-            <h:outputText value="#{serie.autor}" />
-        </p:column>
+            <p:column headerText="Autor">
+                <h:outputText value="#{serie.autor}" />
+            </p:column>
 
-        <p:column headerText="Descripción" width="900">
-            <h:outputText value="#{serie.descripcion}" />
-        </p:column>
-        <p:column headerText="Fecha" >
-            <h:outputText value="#{serie.fecha}" />
-        </p:column>
+            <p:column headerText="Descripción" width="900">
+                <h:outputText value="#{serie.descripcion}" />
+            </p:column>
+            <p:column headerText="Fecha" >
+                <h:outputText value="#{serie.fecha}" />
+            </p:column>
+            <p:column headerText="Editar" >
+                <h:commandButton value="Editar" action="#{indexBean.doEdit(serie.idSerie)}"></h:commandButton>
+            </p:column>
         </p:dataTable>
             
         </h:form>

@@ -29,6 +29,7 @@ public class IndexBean implements Serializable {
     protected List<Serie> listaSeries;
     protected List<Categoria> listaCategorias;
     protected Integer categoriaIdSeleccionada;
+    protected Integer serieIdSeleccionada;
     
     public IndexBean() {
     }
@@ -70,6 +71,14 @@ public class IndexBean implements Serializable {
     public void setCategoriaIdSeleccionada(Integer categoriaIdSeleccionada) {
         this.categoriaIdSeleccionada = categoriaIdSeleccionada;
     }
+
+    public Integer getSerieIdSeleccionada() {
+        return serieIdSeleccionada;
+    }
+
+    public void setSerieIdSeleccionada(Integer serieIdSeleccionada) {
+        this.serieIdSeleccionada = serieIdSeleccionada;
+    }
     
     
     
@@ -109,4 +118,8 @@ public class IndexBean implements Serializable {
         return null;
     }
         
+    public String doEdit (Integer idSerie){
+        this.serieIdSeleccionada = idSerie;
+        return "editarSerie?faces-redirect=true";
+    }
 }
