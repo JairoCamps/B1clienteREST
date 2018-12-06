@@ -133,16 +133,16 @@ public class EditarBean {
     
     public String doEditar(){
         serie.setCategoriaList(listaCategoriasSeleccionadas);
-        serie.se
         editarSerie(serie.getIdSerie().toString());
-        
+       
+        /*
         for (Categoria c : listaCategoriasSeleccionadas){
             List<Serie> listaSeries = getSeriesByIdCategoria(c.getIdCategoria().toString());
             c.setSerieList(listaSeries);
             c.getSerieList().add(serie);
             editarCategoria(c, c.getIdCategoria().toString());
         }
-        
+        */
         indexBean.init();
         return "index?faces-redirect=true";
     }
