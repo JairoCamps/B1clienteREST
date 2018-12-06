@@ -5,8 +5,11 @@
  */
 package app.bean;
 
+import app.client.CategoriaClienteREST;
 import app.client.SerieClienteREST;
+import app.entity.Categoria;
 import app.entity.Serie;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -26,6 +29,8 @@ public class EditarBean {
     private IndexBean indexBean;
     
     protected Serie serie;
+    protected List<Categoria> listaCategorias;
+    protected List<Categoria> listaCategoriasSeleccionadas;
     
     public EditarBean() {
     }
@@ -33,6 +38,8 @@ public class EditarBean {
     @PostConstruct
     public void init(){
         serie = this.getSerieById(String.valueOf(indexBean.serieIdSeleccionada));
+        listaCategorias = indexBean.getListaCategoria();
+        listaCategoriasSeleccionadas = this.getCategoriasByIdSerie(String.valueOf(serie.getIdSerie()));       
     }
 
     public Serie getSerie() {
@@ -50,8 +57,25 @@ public class EditarBean {
     public void setIndexBean(IndexBean indexBean) {
         this.indexBean = indexBean;
     }
+
+    public List<Categoria> getListaCategoriasSeleccionadas() {
+        return listaCategoriasSeleccionadas;
+    }
+
+    public void setListaCategoriasSeleccionadas(List<Categoria> listaCategoriasSeleccionadas) {
+        this.listaCategoriasSeleccionadas = listaCategoriasSeleccionadas;
+    }
+
+    public List<Categoria> getListaCategorias() {
+        return listaCategorias;
+    }
+
+    public void setListaCategorias(List<Categoria> listaCategorias) {
+        this.listaCategorias = listaCategorias;
+    }
     
     
+
     
     private Serie getSerieById(String id) {
         SerieClienteREST serieCliente = new SerieClienteREST();
@@ -64,4 +88,62 @@ public class EditarBean {
         return null;
     }
     
+    private List<Categoria> getCategoriasByIdSerie(String id){
+        SerieClienteREST serieCliente = new SerieClienteREST();
+        Response r = serieCliente.findCategoriasByIdSerie_XML(Response.class, id);
+        if (r.getStatus() == 200) {
+            GenericType<List<Categoria>> genericType = new GenericType<List<Categoria>>(){};
+            List<Categoria> l = r.readEntity(genericType);
+            return l;
+        }
+        return null;
+    }
+    
+    private Categoria getCategoriaById(String id){
+        CategoriaClienteREST categoriaCliente = new CategoriaClienteREST();
+        Response r = categoriaCliente.find_XML(Response.class, id);
+        if (r.getStatus() == 200) {
+            GenericType<Categoria> genericType = new GenericType<Categoria>(){};
+            Categoria c = r.readEntity(genericType);
+            return c;
+        }
+        return null;
+    }
+    
+    private List<Serie> getSeriesByIdCategoria(String idCategoria) {
+        SerieClienteREST serieCliente = new SerieClienteREST();
+        Response r = serieCliente.findSeriesByIdCategoria_XML(Response.class, idCategoria);
+        if (r.getStatus() == 200) {
+            GenericType<List<Serie>> genericType = new GenericType<List<Serie>>(){};
+            List<Serie> series = r.readEntity(genericType);
+            return series;
+        }
+        return null;
+    }
+    
+    private void editarSerie (String id){
+        SerieClienteREST serieCliente = new SerieClienteREST();
+        serieCliente.edit_XML(serie, id);
+    }
+    
+    private void editarCategoria (Categoria cat, String id){
+        CategoriaClienteREST categoriaCliente = new CategoriaClienteREST();
+        categoriaCliente.edit_XML(cat, id);
+    }
+    
+    public String doEditar(){
+        serie.setCategoriaList(listaCategoriasSeleccionadas);
+        serie.se
+        editarSerie(serie.getIdSerie().toString());
+        
+        for (Categoria c : listaCategoriasSeleccionadas){
+            List<Serie> listaSeries = getSeriesByIdCategoria(c.getIdCategoria().toString());
+            c.setSerieList(listaSeries);
+            c.getSerieList().add(serie);
+            editarCategoria(c, c.getIdCategoria().toString());
+        }
+        
+        indexBean.init();
+        return "index?faces-redirect=true";
+    }
 }

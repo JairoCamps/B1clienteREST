@@ -111,7 +111,7 @@ public class SerieClienteREST {
         resource = resource.path(java.text.MessageFormat.format("seriesByIdCategoria/{0}", new Object[]{idCategoria}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
-//-------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------ENCONTRAR SERIE POR NOMBRE--------------------------------------------------------
     
     public <T> T findSerieByNombre_XML(Class<T> responseType, String nombre) throws ClientErrorException {
         WebTarget resource = webTarget;
@@ -125,7 +125,7 @@ public class SerieClienteREST {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
     
-    //-------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------ENCONTRAR LISTA DE CATEGORIAS DE UNA SERIE-----------------------------------------------------
     
     public <T> T findCategoriasByIdSerie_XML(Class<T> responseType, String idSerie) throws ClientErrorException {
         WebTarget resource = webTarget;
