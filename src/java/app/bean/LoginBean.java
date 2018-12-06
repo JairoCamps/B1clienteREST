@@ -22,7 +22,8 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class LoginBean implements Serializable {
 
-        private String emailUser;
+    private String emailUser;
+    private boolean loginInvitado;
     private String imageUrl;
     
     private List<String> images;
@@ -43,7 +44,7 @@ public class LoginBean implements Serializable {
 
     
     /**
-     * remoteAction()
+     * login()
      * Recoge los datos de logueo y los guarda en el bean.
      */
     
@@ -58,6 +59,18 @@ public class LoginBean implements Serializable {
         }
 
     }
+    
+    /**
+     * Loguea al usuario en el sistema como invitado
+     * @return index
+     */
+    
+    public String loginAsInvited(){
+        this.emailUser = null;
+        this.loginInvitado = true;
+        return "index";
+    }
+    
     
     public void logout(){
         this.emailUser = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("emailUser");
@@ -88,6 +101,9 @@ public class LoginBean implements Serializable {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    
+
+    public boolean isLoginInvitado() {
+        return loginInvitado;
+    }
     
 }

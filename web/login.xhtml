@@ -34,7 +34,7 @@
         <!-- Cabecera de la página -->    
         <div class="jumbotron" style="background-color: #39CCCC ">
             <div class="container">
-                <h1>Bienvenido a DComics</h1>
+                <h1>Bienvenido a Comics</h1>
                 <b>Tu aplicación para gestión de series de comics.</b> 
             </div>
         </div>
@@ -45,7 +45,7 @@
         <!-- Boton de login de Google -->
         <div class="container" align="center">
             <div class="g-signin2" data-onsuccess="onSignIn" data-longtitle="true" data-theme="dark"/><br/>
-            <p:commandLink id="linkLogout" class="btn btn-outline-danger" value="Cerrar Sesión" onclick="signOut();" rendered="#{not empty loginBean.emailUser}"/>
+            <h:commandLink action="#{loginBean.loginAsInvited}"  class="btn btn-outline-info" value="Acceder como invitado" />
         </div>
         
         </h:form>    
