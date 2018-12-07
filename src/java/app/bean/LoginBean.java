@@ -72,8 +72,10 @@ public class LoginBean implements Serializable {
     }
     
     
+    
     public void logout(){
         this.emailUser = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("emailUser");
+        this.imageUrl = null; 
     }
     
     //Getters y setters varios

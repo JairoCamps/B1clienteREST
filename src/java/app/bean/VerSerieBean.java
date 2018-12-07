@@ -24,13 +24,11 @@ import javax.ws.rs.core.Response;
  * @author ofviak
  */
 @Named(value = "verSerieBean")
-@SessionScoped
+@RequestScoped
 public class VerSerieBean implements Serializable {
     
     private Serie serie;
-    private ArrayList<String> listaImagesUrl;
-    private ArrayList<String> listaTitulos;
-    
+
     /**
      * Creates a new instance of VerSerieBean
      */
@@ -44,8 +42,6 @@ public class VerSerieBean implements Serializable {
     
     @PostConstruct
     public void init(){
-        listaImagesUrl = new ArrayList<>();
-        listaTitulos = new ArrayList<>();
         
         Map<String,String> params = FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap();
@@ -78,20 +74,5 @@ public class VerSerieBean implements Serializable {
         this.serie = serie;
     }
 
-    public ArrayList<String> getListaImagesUrl() {
-        return listaImagesUrl;
-    }
-
-    public void setListaImagesUrl(ArrayList<String> listaImagesUrl) {
-        this.listaImagesUrl = listaImagesUrl;
-    }
-
-    public ArrayList<String> getListaTitulos() {
-        return listaTitulos;
-    }
-
-    public void setListaTitulos(ArrayList<String> listaTitulos) {
-        this.listaTitulos = listaTitulos;
-    }
 
 }
